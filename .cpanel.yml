@@ -5,3 +5,4 @@ deployment:
     - /bin/test -d "$DEPLOYPATH"
     - /bin/cp index.html about.html services.html coverage.html process.html contact.html "$DEPLOYPATH"
     - /bin/cp -R assets "$DEPLOYPATH"
+    - /bin/bash scripts/cpanel-homepage.sh "$DEPLOYPATH"
