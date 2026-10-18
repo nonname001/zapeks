@@ -24,6 +24,13 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Validate the inquiry form
+        run: |
+          php -l inquiry.php
+          php tests/inquiry-test.php
+          node --check assets/contact.js
+          node --test tests/contact.test.cjs
+
       - name: Prepare SSH authentication
         env:
           CPANEL_SSH_PRIVATE_KEY: ${{ secrets.CPANEL_SSH_PRIVATE_KEY }}

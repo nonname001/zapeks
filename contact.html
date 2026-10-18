@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Contact Zapeks | Component Sourcing</title>
-    <meta name="description" content="Prepare a component sourcing inquiry for Zapeks with the details needed to evaluate your requirement." />
+    <meta name="description" content="Send a component sourcing inquiry directly to Zapeks with the details needed to evaluate your requirement." />
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23ffffff'/%3E%3Cpath d='M14 18h36L25 46h25' fill='none' stroke='%23244da8' stroke-width='7' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M17 18l24 28' stroke='%23d6292f' stroke-width='5'/%3E%3C/svg%3E" />
     <style>
       :root { --ink:#202634; --muted:#4a5568; --blue:#244da8; --red:#d6292f; --light-blue:#b8caff; --line:#d7dce7; --paper:#f7f8fb; --dark:#1b2335; }
@@ -45,11 +45,12 @@
       .actions { grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; gap:15px; margin-top:6px; }
       .button { min-height:48px; border:1px solid var(--red); background:var(--red); color:#fff; padding:0 23px; font-weight:750; cursor:pointer; }
       .button:hover { background:#ad2026; }
-      .button.secondary { border-color:var(--blue); background:transparent; color:var(--blue); }
-      .button.secondary:hover { background:#e8edf9; }
-      .status { margin:0; color:var(--muted); font-size:.92rem; }
-      .fallback { grid-column:1 / -1; }
-      .fallback[hidden] { display:none; }
+      .button:disabled { opacity:.65; cursor:wait; }
+      .status { flex-basis:100%; margin:0; color:var(--muted); font-size:.92rem; overflow-wrap:anywhere; }
+      .status[data-state="error"] { color:#a51e29; }
+      .status[data-state="success"] { color:#15644b; }
+      .bot-field { position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden; }
+      .form-note { grid-column:1 / -1; margin:0; color:var(--muted); font-size:.86rem; }
       .side { border-top:3px solid var(--red); padding-top:25px; }
       .side h2 { font-size:1.45rem; }
       .side p { color:var(--muted); }
@@ -89,20 +90,23 @@
     </header>
     <main>
       <section aria-labelledby="inquiry-title">
-        <h2 id="inquiry-title">Prepare an inquiry</h2>
-        <p class="intro">Fill in what you know. Open a prepared email to sales@zapeks.com, or copy the brief for your records. This page does not send or store your information.</p>
-        <form id="inquiry-form">
-          <div class="field"><label for="name">Your name <span class="required-note">(required)</span></label><input id="name" name="name" autocomplete="name" required /></div>
-          <div class="field"><label for="email">Work email <span class="required-note">(required)</span></label><input id="email" name="email" type="email" autocomplete="email" required /></div>
-          <div class="field"><label for="company">Company <span class="required-note">(required)</span></label><input id="company" name="company" autocomplete="organization" required /></div>
+        <h2 id="inquiry-title">Send an inquiry</h2>
+        <p class="intro">Tell us what you need. Your inquiry will go directly to the Zapeks sales team, who can reply to your work email.</p>
+        <form id="inquiry-form" action="inquiry.php" method="post">
+          <input type="hidden" name="csrfToken" id="csrf-token" />
+          <div class="bot-field" aria-hidden="true"><label for="website">Leave this field empty</label><input id="website" name="website" tabindex="-1" autocomplete="off" /></div>
+          <div class="field"><label for="name">Your name <span class="required-note">(required)</span></label><input id="name" name="name" autocomplete="name" maxlength="120" required /></div>
+          <div class="field"><label for="email">Work email <span class="required-note">(required)</span></label><input id="email" name="email" type="email" autocomplete="email" maxlength="254" required /></div>
+          <div class="field"><label for="company">Company <span class="required-note">(required)</span></label><input id="company" name="company" autocomplete="organization" maxlength="160" required /></div>
           <div class="field"><label for="request-type">Inquiry type</label><select id="request-type" name="requestType"><option>Component sourcing / RFQ</option><option>Supplier development</option><option>Engineering or quality support</option><option>Warehousing and logistics</option><option>General inquiry</option></select></div>
-          <div class="field full"><label for="parts">Part numbers or description <span class="hint">(include approved alternates when relevant)</span></label><textarea id="parts" name="parts" required></textarea></div>
-          <div class="field"><label for="quantity">Quantity <span class="hint">(optional)</span></label><input id="quantity" name="quantity" /></div>
+          <div class="field full"><label for="parts">Part numbers or description <span class="required-note">(required)</span><br /><span class="hint">Include approved alternates when relevant.</span></label><textarea id="parts" name="parts" maxlength="6000" required></textarea></div>
+          <div class="field"><label for="quantity">Quantity <span class="hint">(optional)</span></label><input id="quantity" name="quantity" maxlength="200" /></div>
           <div class="field"><label for="date">Target date <span class="hint">(optional)</span></label><input id="date" name="date" type="date" /></div>
-          <div class="field full"><label for="location">Delivery location <span class="hint">(optional)</span></label><input id="location" name="location" autocomplete="shipping country-name" /></div>
-          <div class="field full"><label for="requirements">Quality, traceability, supplier, or logistics requirements <span class="hint">(optional)</span></label><textarea id="requirements" name="requirements"></textarea></div>
-          <div class="actions"><button class="button" type="submit">Open email draft</button><button class="button secondary" type="button" id="copy-inquiry">Copy inquiry</button><p class="status" id="status" role="status" aria-live="polite"></p></div>
-          <div class="fallback" id="fallback-wrap" hidden><label for="fallback-text">Prepared inquiry</label><textarea id="fallback-text" readonly></textarea></div>
+          <div class="field full"><label for="location">Delivery location <span class="hint">(optional)</span></label><input id="location" name="location" autocomplete="shipping country-name" maxlength="300" /></div>
+          <div class="field full"><label for="requirements">Quality, traceability, supplier, or logistics requirements <span class="hint">(optional)</span></label><textarea id="requirements" name="requirements" maxlength="5000"></textarea></div>
+          <p class="form-note">We'll use these details to respond to your inquiry.</p>
+          <div class="actions"><button class="button" id="send-inquiry" type="submit">Send inquiry</button><p class="status" id="status" role="status" aria-live="polite" tabindex="-1"></p></div>
+          <noscript><p>Please enable JavaScript to submit this form, or email <a href="mailto:sales@zapeks.com">sales@zapeks.com</a>.</p></noscript>
         </form>
       </section>
       <aside class="side" aria-labelledby="checklist-title">
@@ -117,40 +121,6 @@
       </aside>
     </main>
     <footer><div class="footer-inner"><a href="about.html"><img src="assets/zapeks-logo.png" alt="Zapeks" /></a><span>Component sourcing experts</span><span class="copyright">Copyright ⓒ 2026 Zapeks, Inc. All Rights Reserved.</span></div></footer>
-    <script>
-      const form = document.getElementById('inquiry-form');
-      const status = document.getElementById('status');
-      function buildMessage() {
-        const data = new FormData(form);
-        const fields = [
-          ['Name', data.get('name')], ['Company', data.get('company')], ['Email', data.get('email')],
-          ['Inquiry type', data.get('requestType')], ['Parts / description', data.get('parts')],
-          ['Quantity', data.get('quantity')], ['Target date', data.get('date')],
-          ['Delivery location', data.get('location')], ['Requirements', data.get('requirements')]
-        ];
-        return 'Zapeks sourcing inquiry\n\n' + fields.filter(([, value]) => String(value).trim()).map(([label, value]) => `${label}: ${String(value).trim()}`).join('\n\n');
-      }
-      form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const subject = encodeURIComponent('Zapeks inquiry: ' + form.elements.requestType.value);
-        const body = encodeURIComponent(buildMessage());
-        status.textContent = 'Your email app will open. Send the draft there to reach Zapeks.';
-        window.location.href = `mailto:sales@zapeks.com?subject=${subject}&body=${body}`;
-      });
-      document.getElementById('copy-inquiry').addEventListener('click', async () => {
-        if (!form.reportValidity()) return;
-        const message = buildMessage();
-        try {
-          await navigator.clipboard.writeText(message);
-          status.textContent = 'Inquiry copied. It has not been sent.';
-        } catch {
-          const fallback = document.getElementById('fallback-text');
-          fallback.value = message;
-          document.getElementById('fallback-wrap').hidden = false;
-          fallback.select();
-          status.textContent = 'Copy the selected inquiry below. It has not been sent.';
-        }
-      });
-    </script>
+    <script src="assets/contact.js" defer></script>
   </body>
 </html>

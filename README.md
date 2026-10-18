@@ -1,6 +1,6 @@
 # Zapeks Website
 
-Static company website for Zapeks, Inc.
+Company website for Zapeks, Inc., with HTML pages and a PHP inquiry handler.
 
 ## Pages
 
@@ -8,19 +8,19 @@ Static company website for Zapeks, Inc.
 - `services.html`: component sourcing and related services.
 - `coverage.html`: component families, purchase-order summary, and sectors served.
 - `process.html`: sourcing flow and RFQ information checklist.
-- `contact.html`: sales contact and inquiry preparation form.
+- `contact.html`: sales contact and direct inquiry submission form.
 
 `index.html` redirects to `about.html`. Images and shared styles are in `assets/`.
 
 ## Preview and Deploy
 
-Open `index.html` in a browser, or serve this directory with any static web server. No build step or package installation is required.
+Open `index.html` in a browser to preview the pages. Direct inquiry submission requires PHP 8.1 or later on the web server; it does not work from a local file URL. No build step or package installation is required.
 
 For hosting, upload the contents of this repository to the website's document root, keeping the `assets/` directory alongside the HTML files.
 
 ### cPanel Git Deployment
 
-`.cpanel.yml` copies the six HTML pages and `assets/` into the cPanel account's `$HOME/public_html/` directory. No build step is required. It overwrites matching website files and leaves other files in the destination in place.
+`.cpanel.yml` copies the six HTML pages, `inquiry.php`, and `assets/` into the cPanel account's `$HOME/public_html/` directory. No build step is required. It overwrites matching website files and leaves other files in the destination in place.
 
 Before deploying, confirm the domain's Document Root in cPanel under Domains. If it differs from `public_html`, update `DEPLOYPATH` in `.cpanel.yml` to that directory. The deployment stops if the destination directory does not exist.
 
@@ -38,7 +38,11 @@ Deployment status and errors appear under GitHub Actions > Deploy Zapeks to cPan
 
 ## Contact Form
 
-The form validates required fields and opens an email draft to `sales@zapeks.com`. Visitors send the draft through their email application. The site also supports copying the inquiry; there is no form submission backend or database.
+The form submits to `inquiry.php` on the same domain. The server validates the required fields, email, inquiry type, lengths, and target date, then uses the hosting account's PHP mail transport to send the inquiry to `sales@zapeks.com`. The fixed sender is `sales@zapeks.com`; Reply-To contains the validated visitor email. The page displays confirmation only after the mail transport accepts the message, and retains the entered fields if submission fails. Mail transport acceptance is not a guarantee of inbox delivery; use cPanel Track Delivery to investigate delivery problems.
+
+Spam controls include a session CSRF token, a hidden honeypot, a short minimum fill time, and an IP-based limit of five submissions per hour with a 30-second cooldown. Rate-limit timestamps and hashed IP identifiers are stored outside the public folder in `/home/zapeksco/.zapeks-inquiry/`. No inquiry content is stored there. `ZAPEKS_INQUIRY_STATE_DIR` can override this storage location. No automated reply is sent to visitors.
+
+GitHub Actions runs PHP validation/service tests and JavaScript submission tests before deployment. The tests use a fake mail transport and do not send inquiries.
 
 ## Assets
 

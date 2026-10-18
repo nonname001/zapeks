@@ -3,6 +3,6 @@ deployment:
   tasks:
     - export DEPLOYPATH="$HOME/public_html/"
     - /bin/test -d "$DEPLOYPATH"
-    - /bin/cp index.html about.html services.html coverage.html process.html contact.html "$DEPLOYPATH"
+    - /bin/cp index.html about.html services.html coverage.html process.html contact.html inquiry.php "$DEPLOYPATH"
     - /bin/cp -R assets "$DEPLOYPATH"
     - /bin/bash scripts/cpanel-homepage.sh "$DEPLOYPATH"
