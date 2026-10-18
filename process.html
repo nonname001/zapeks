@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Process | Zapeks</title>
+  <meta name="description" content="Follow the Zapeks sourcing process from customer RFQ through review, validation, logistics, and delivery." />
+  <link rel="stylesheet" href="assets/inner.css" />
+  <style>
+    .process-flow{position:relative;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:18px;margin:12px 0 0;padding:0;list-style:none}
+    .process-flow::before{position:absolute;top:25px;left:10%;right:10%;height:3px;content:"";background:linear-gradient(90deg,var(--blue),#6c68a6,var(--red))}
+    .flow-step{position:relative;min-width:0;text-align:center}
+    .flow-marker{position:relative;z-index:1;display:grid;place-items:center;width:52px;height:52px;margin:0 auto 27px;border:2px solid var(--blue);border-radius:50%;background:#fff;box-shadow:0 0 0 6px #fff}
+    .flow-marker::after{width:12px;height:12px;content:"";background:var(--blue);transform:rotate(45deg)}
+    .flow-step:first-child .flow-marker,.flow-step:last-child .flow-marker{border-color:var(--red)}
+    .flow-step:first-child .flow-marker::after,.flow-step:last-child .flow-marker::after{background:var(--red)}
+    .flow-step h3{margin-bottom:9px;font-size:1.08rem;line-height:1.25}
+    .flow-step p{margin:0;color:var(--muted);font-size:.94rem}
+    @media(max-width:920px){.process-flow{grid-template-columns:1fr;gap:0}.process-flow::before{top:26px;bottom:26px;left:25px;right:auto;width:3px;height:auto;background:linear-gradient(180deg,var(--blue),#6c68a6,var(--red))}.flow-step{display:grid;grid-template-columns:52px 1fr;gap:0 20px;padding:0 0 28px;text-align:left}.flow-step:last-child{padding-bottom:0}.flow-marker{grid-column:1;margin:0}.flow-copy{grid-column:2;grid-row:1}.flow-step h3{margin-top:2px}}
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Main navigation"><div class="nav-inner">
+    <a class="brand" href="about.html" aria-label="About Zapeks"><img src="assets/zapeks-logo.png" alt="Zapeks" /></a>
+    <div class="nav-links"><a href="about.html">About</a><a href="services.html">Services</a><a href="coverage.html">Coverage</a><a href="process.html" aria-current="page">Process</a><a href="contact.html" class="nav-cta">Contact</a></div>
+  </div></nav>
+  <header class="hero"><img class="hero-image" src="assets/hero-process.png" alt="Worker checking component bags at an organized fulfillment station" /><div class="hero-inner">
+    <p class="eyebrow">Process</p>
+    <h1>A clear path from RFQ to delivery.</h1>
+    <p class="hero-copy">Each stage keeps the customer requirement, supplier option, and delivery route connected.</p>
+    <div class="hero-actions"><a class="button primary" href="contact.html">Prepare an RFQ</a><a class="button" href="services.html">Explore services</a></div>
+  </div></header>
+  <main>
+    <section class="band white" aria-labelledby="flow-title"><div class="inner">
+      <div class="section-head"><h2 id="flow-title">The sourcing flow</h2><p>Zapeks works as a practical link between customer demand and supplier availability.</p></div>
+      <ol class="process-flow">
+        <li class="flow-step"><span class="flow-marker" aria-hidden="true"></span><div class="flow-copy"><h3>Customer RFQ</h3><p>The customer shares the requirement, quantity, timing, target conditions, and approved alternates.</p></div></li>
+        <li class="flow-step"><span class="flow-marker" aria-hidden="true"></span><div class="flow-copy"><h3>Sourcing review</h3><p>Zapeks searches viable supplier channels and evaluates availability against the specification.</p></div></li>
+        <li class="flow-step"><span class="flow-marker" aria-hidden="true"></span><div class="flow-copy"><h3>Response and validation</h3><p>Options are reviewed for technical fit, cost, quality, documentation, and timing.</p></div></li>
+        <li class="flow-step"><span class="flow-marker" aria-hidden="true"></span><div class="flow-copy"><h3>Logistics arrangement</h3><p>Shipment, warehousing, consolidation, and the delivery route are coordinated.</p></div></li>
+        <li class="flow-step"><span class="flow-marker" aria-hidden="true"></span><div class="flow-copy"><h3>Delivery</h3><p>Parts reach the customer with the agreed handoff information.</p></div></li>
+      </ol>
+    </div></section>
+    <section class="band" aria-labelledby="rfq-title"><div class="inner">
+      <div class="section-head"><h2 id="rfq-title">What helps an RFQ move quickly</h2><p>Good input reduces quote cycles and makes supplier options easier to compare.</p></div>
+      <div class="rule-list motif-list">
+        <article class="rule-row"><span class="motif" aria-hidden="true"></span><h3>Part identification</h3><p>Part number, description, and approved alternates.</p></article>
+        <article class="rule-row"><span class="motif" aria-hidden="true"></span><h3>Quantity and timing</h3><p>Required quantity, target date, and delivery location.</p></article>
+        <article class="rule-row"><span class="motif" aria-hidden="true"></span><h3>Quality requirements</h3><p>Compliance, traceability, and documentation expectations.</p></article>
+        <article class="rule-row"><span class="motif" aria-hidden="true"></span><h3>Supplier preferences</h3><p>Preferred suppliers or sources to avoid.</p></article>
+        <article class="rule-row"><span class="motif" aria-hidden="true"></span><h3>Commercial targets</h3><p>Price goals and the criteria for choosing an option.</p></article>
+        <article class="rule-row"><span class="motif" aria-hidden="true"></span><h3>Delivery constraints</h3><p>Warehousing, logistics, and handoff requirements.</p></article>
+      </div>
+    </div></section>
+    <section class="band dark"><div class="inner cta"><div><p class="eyebrow">Ready to engage</p><h2>Start with the parts and the deadline.</h2><p>Share the details you have. Zapeks can use them to begin the sourcing conversation.</p></div><a class="button primary" href="contact.html">Contact Zapeks</a></div></section>
+  </main>
+  <footer><div class="footer-inner"><a href="about.html"><img src="assets/zapeks-logo.png" alt="Zapeks" /></a><a href="mailto:sales@zapeks.com">sales@zapeks.com</a><span class="copyright">Copyright ⓒ 2026 Zapeks, Inc. All Rights Reserved.</span></div></footer>
+</body>
+</html>

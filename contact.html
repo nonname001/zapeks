@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Contact Zapeks | Component Sourcing</title>
+    <meta name="description" content="Prepare a component sourcing inquiry for Zapeks with the details needed to evaluate your requirement." />
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23ffffff'/%3E%3Cpath d='M14 18h36L25 46h25' fill='none' stroke='%23244da8' stroke-width='7' stroke-linejoin='round' stroke-linecap='round'/%3E%3Cpath d='M17 18l24 28' stroke='%23d6292f' stroke-width='5'/%3E%3C/svg%3E" />
+    <style>
+      :root { --ink:#202634; --muted:#4a5568; --blue:#244da8; --red:#d6292f; --light-blue:#b8caff; --line:#d7dce7; --paper:#f7f8fb; --dark:#1b2335; }
+      * { box-sizing:border-box; }
+      html { scroll-behavior:smooth; }
+      body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+      a { color:inherit; text-decoration:none; }
+      button,input,textarea,select { font:inherit; }
+      .nav { position:sticky; top:0; z-index:5; background:#fff; border-bottom:1px solid var(--line); }
+      .nav-inner,.footer-inner { width:min(1180px,calc(100% - 40px)); margin:auto; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+      .nav-inner { padding:18px 0; }
+      .brand img,.footer-inner img { display:block; width:124px; height:31px; object-fit:contain; }
+      .nav-links { display:flex; align-items:center; flex-wrap:wrap; gap:22px; color:var(--muted); font-size:.94rem; font-weight:650; }
+      .nav-links a:hover,.nav-links a[aria-current="page"] { color:var(--blue); }
+      .nav-cta { display:inline-flex; align-items:center; min-height:42px; padding:0 18px; border:1px solid var(--red); color:var(--red)!important; font-weight:760; }
+      .hero { position:relative; isolation:isolate; background:var(--dark); color:#fff; border-bottom:5px solid var(--red); }
+      .hero-image { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; z-index:0; }
+      .hero::before { position:absolute; inset:0; content:""; background:linear-gradient(90deg,rgba(16,24,39,.96) 0%,rgba(20,32,57,.84) 34%,rgba(20,32,57,.07) 76%); z-index:1; }
+      .hero-inner { position:relative; z-index:2; width:min(1180px,calc(100% - 40px)); margin:auto; padding:72px 0 78px; }
+      .eyebrow { margin:0 0 16px; color:var(--light-blue); text-transform:uppercase; font-size:.83rem; font-weight:800; letter-spacing:.08em; }
+      h1,h2,h3,p { margin-top:0; }
+      h1 { max-width:750px; margin-bottom:18px; font-size:clamp(2.8rem,5.6vw,5.2rem); line-height:1; letter-spacing:0; }
+      .hero p:not(.eyebrow) { max-width:650px; margin-bottom:0; color:#e4e9f4; font-size:1.13rem; }
+      .hero-email { display:inline-block; margin-top:25px; color:#fff; font-size:1.12rem; font-weight:750; text-decoration:underline; text-decoration-color:#ee6c71; text-underline-offset:6px; }
+      .hero-email:hover { color:#ffe5e6; }
+      main { width:min(1180px,calc(100% - 40px)); margin:auto; display:grid; grid-template-columns:minmax(0,1fr) minmax(250px,.52fr); gap:70px; align-items:start; padding:72px 0 96px; }
+      h2 { margin-bottom:12px; font-size:clamp(1.9rem,3.3vw,2.75rem); line-height:1.1; }
+      .intro { max-width:650px; margin-bottom:32px; color:var(--muted); }
+      form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; }
+      .field { min-width:0; }
+      .field.full { grid-column:1 / -1; }
+      label { display:block; margin-bottom:8px; font-size:.91rem; font-weight:760; }
+      .required-note { margin-left:6px; color:var(--red); font-size:.78rem; font-weight:700; }
+      .hint { color:var(--muted); font-size:.86rem; font-weight:400; }
+      input,textarea,select { width:100%; min-height:48px; padding:11px 13px; border:1px solid #aeb8ca; border-radius:3px; background:#fff; color:var(--ink); outline:none; }
+      textarea { min-height:112px; resize:vertical; }
+      input:focus,textarea:focus,select:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(36,77,168,.15); }
+      .actions { grid-column:1 / -1; display:flex; flex-wrap:wrap; align-items:center; gap:15px; margin-top:6px; }
+      .button { min-height:48px; border:1px solid var(--red); background:var(--red); color:#fff; padding:0 23px; font-weight:750; cursor:pointer; }
+      .button:hover { background:#ad2026; }
+      .button.secondary { border-color:var(--blue); background:transparent; color:var(--blue); }
+      .button.secondary:hover { background:#e8edf9; }
+      .status { margin:0; color:var(--muted); font-size:.92rem; }
+      .fallback { grid-column:1 / -1; }
+      .fallback[hidden] { display:none; }
+      .side { border-top:3px solid var(--red); padding-top:25px; }
+      .side h2 { font-size:1.45rem; }
+      .side p { color:var(--muted); }
+      .side ul { margin:20px 0 0; padding:0; list-style:none; }
+      .side li { padding:15px 0; border-top:1px solid var(--line); }
+      .side strong { display:block; font-size:.95rem; }
+      .side span { display:block; margin-top:3px; color:var(--muted); font-size:.91rem; }
+      footer { background:#fff; color:var(--muted); border-top:1px solid var(--line); }
+      .footer-inner { padding:26px 0; flex-wrap:wrap; }
+      .copyright { font-size:.85rem; text-align:right; }
+      .footer-inner a:hover { color:var(--blue); }
+      @media (max-width:850px) { main { grid-template-columns:1fr; gap:56px; } }
+      @media (max-width:600px) { .nav-inner { align-items:flex-start; flex-direction:column; gap:14px; } .nav-links { gap:12px 18px; } .hero-image { object-position:68% center; } .hero::before { background:linear-gradient(90deg,rgba(16,24,39,.95),rgba(20,32,57,.72)); } .hero-inner { padding:54px 0 60px; } main { padding:54px 0 70px; } form { grid-template-columns:1fr; } .footer-inner { align-items:flex-start; flex-direction:column; } .copyright { text-align:left; } }
+    </style>
+  </head>
+  <body>
+    <nav class="nav" aria-label="Main navigation">
+      <div class="nav-inner">
+        <a class="brand" href="about.html" aria-label="About Zapeks"><img src="assets/zapeks-logo.png" alt="Zapeks" /></a>
+        <div class="nav-links">
+          <a href="about.html">About</a>
+          <a href="services.html">Services</a>
+          <a href="coverage.html">Coverage</a>
+          <a href="process.html">Process</a>
+          <a href="contact.html" class="nav-cta" aria-current="page">Contact</a>
+        </div>
+      </div>
+    </nav>
+    <header class="hero">
+      <img class="hero-image" src="assets/hero-contact.png" alt="Professional reviewing components and writing a sourcing inquiry at a desk" />
+      <div class="hero-inner">
+        <p class="eyebrow">Contact Zapeks</p>
+        <h1>Tell us what you need to source.</h1>
+        <p>Share the component, timing, and quality requirements behind your request. A clear brief helps the sourcing conversation move quickly.</p>
+        <a class="hero-email" href="mailto:sales@zapeks.com">sales@zapeks.com</a>
+      </div>
+    </header>
+    <main>
+      <section aria-labelledby="inquiry-title">
+        <h2 id="inquiry-title">Prepare an inquiry</h2>
+        <p class="intro">Fill in what you know. Open a prepared email to sales@zapeks.com, or copy the brief for your records. This page does not send or store your information.</p>
+        <form id="inquiry-form">
+          <div class="field"><label for="name">Your name <span class="required-note">(required)</span></label><input id="name" name="name" autocomplete="name" required /></div>
+          <div class="field"><label for="email">Work email <span class="required-note">(required)</span></label><input id="email" name="email" type="email" autocomplete="email" required /></div>
+          <div class="field"><label for="company">Company <span class="required-note">(required)</span></label><input id="company" name="company" autocomplete="organization" required /></div>
+          <div class="field"><label for="request-type">Inquiry type</label><select id="request-type" name="requestType"><option>Component sourcing / RFQ</option><option>Supplier development</option><option>Engineering or quality support</option><option>Warehousing and logistics</option><option>General inquiry</option></select></div>
+          <div class="field full"><label for="parts">Part numbers or description <span class="hint">(include approved alternates when relevant)</span></label><textarea id="parts" name="parts" required></textarea></div>
+          <div class="field"><label for="quantity">Quantity <span class="hint">(optional)</span></label><input id="quantity" name="quantity" /></div>
+          <div class="field"><label for="date">Target date <span class="hint">(optional)</span></label><input id="date" name="date" type="date" /></div>
+          <div class="field full"><label for="location">Delivery location <span class="hint">(optional)</span></label><input id="location" name="location" autocomplete="shipping country-name" /></div>
+          <div class="field full"><label for="requirements">Quality, traceability, supplier, or logistics requirements <span class="hint">(optional)</span></label><textarea id="requirements" name="requirements"></textarea></div>
+          <div class="actions"><button class="button" type="submit">Open email draft</button><button class="button secondary" type="button" id="copy-inquiry">Copy inquiry</button><p class="status" id="status" role="status" aria-live="polite"></p></div>
+          <div class="fallback" id="fallback-wrap" hidden><label for="fallback-text">Prepared inquiry</label><textarea id="fallback-text" readonly></textarea></div>
+        </form>
+      </section>
+      <aside class="side" aria-labelledby="checklist-title">
+        <h2 id="checklist-title">Details that help</h2>
+        <p>For time-sensitive or controlled components, include any details that affect supplier selection or shipment.</p>
+        <ul>
+          <li><strong>Specification</strong><span>Manufacturer, part number, description, and approved alternates.</span></li>
+          <li><strong>Schedule</strong><span>Quantity, target date, and delivery location.</span></li>
+          <li><strong>Quality</strong><span>Compliance, traceability, and documentation requirements.</span></li>
+          <li><strong>Commercial fit</strong><span>Preferred suppliers, price targets, or decision criteria.</span></li>
+        </ul>
+      </aside>
+    </main>
+    <footer><div class="footer-inner"><a href="about.html"><img src="assets/zapeks-logo.png" alt="Zapeks" /></a><span>Component sourcing experts</span><span class="copyright">Copyright ⓒ 2026 Zapeks, Inc. All Rights Reserved.</span></div></footer>
+    <script>
+      const form = document.getElementById('inquiry-form');
+      const status = document.getElementById('status');
+      function buildMessage() {
+        const data = new FormData(form);
+        const fields = [
+          ['Name', data.get('name')], ['Company', data.get('company')], ['Email', data.get('email')],
+          ['Inquiry type', data.get('requestType')], ['Parts / description', data.get('parts')],
+          ['Quantity', data.get('quantity')], ['Target date', data.get('date')],
+          ['Delivery location', data.get('location')], ['Requirements', data.get('requirements')]
+        ];
+        return 'Zapeks sourcing inquiry\n\n' + fields.filter(([, value]) => String(value).trim()).map(([label, value]) => `${label}: ${String(value).trim()}`).join('\n\n');
+      }
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const subject = encodeURIComponent('Zapeks inquiry: ' + form.elements.requestType.value);
+        const body = encodeURIComponent(buildMessage());
+        status.textContent = 'Your email app will open. Send the draft there to reach Zapeks.';
+        window.location.href = `mailto:sales@zapeks.com?subject=${subject}&body=${body}`;
+      });
+      document.getElementById('copy-inquiry').addEventListener('click', async () => {
+        if (!form.reportValidity()) return;
+        const message = buildMessage();
+        try {
+          await navigator.clipboard.writeText(message);
+          status.textContent = 'Inquiry copied. It has not been sent.';
+        } catch {
+          const fallback = document.getElementById('fallback-text');
+          fallback.value = message;
+          document.getElementById('fallback-wrap').hidden = false;
+          fallback.select();
+          status.textContent = 'Copy the selected inquiry below. It has not been sent.';
+        }
+      });
+    </script>
+  </body>
+</html>
