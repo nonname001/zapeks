@@ -1,0 +1,54 @@
+name: Deploy Zapeks to cPanel
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: zapeks-cpanel-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out the website
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Prepare SSH authentication
+        env:
+          CPANEL_SSH_PRIVATE_KEY: ${{ secrets.CPANEL_SSH_PRIVATE_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$CPANEL_SSH_PRIVATE_KEY" ]]; then
+            echo 'Add CPANEL_SSH_PRIVATE_KEY to the repository Actions secrets.' >&2
+            exit 1
+          fi
+          umask 077
+          ssh_dir="$RUNNER_TEMP/cpanel-ssh"
+          mkdir -p "$ssh_dir"
+          printf '%s\n' "$CPANEL_SSH_PRIVATE_KEY" | tr -d '\r' > "$ssh_dir/key"
+          ssh-keygen -y -P '' -f "$ssh_dir/key" > /dev/null
+          cp .github/cpanel_known_hosts "$ssh_dir/known_hosts"
+
+      - name: Push to cPanel and trigger deployment
+        shell: bash
+        run: |
+          set -euo pipefail
+          export GIT_SSH_COMMAND="ssh -i \"$RUNNER_TEMP/cpanel-ssh/key\" -o IdentitiesOnly=yes -o BatchMode=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=\"$RUNNER_TEMP/cpanel-ssh/known_hosts\" -o ConnectTimeout=20 -o ServerAliveInterval=15 -o ServerAliveCountMax=3"
+          git push ssh://zapeksco@zapeks.com:7822/home/zapeksco/repositories/zapeks HEAD:refs/heads/main
+
+      - name: Remove the temporary private key
+        if: always()
+        shell: bash
+        run: rm -f -- "${RUNNER_TEMP:?}/cpanel-ssh/key"
